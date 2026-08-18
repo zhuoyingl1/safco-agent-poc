@@ -10,6 +10,7 @@ from safco_agent.agents.category_discovery import CategoryDiscoveryAgent, Discov
 from safco_agent.agents.page_classifier import PageClassifierAgent, PageType
 from safco_agent.browser import PageSnapshot, fetch_page_snapshot
 from safco_agent.config import AppConfig, SeedCategory
+from safco_agent.crawl_control import CrawlControlConfig, PoliteCrawlController
 from safco_agent.url_utils import canonicalize_url, is_safco_product_url
 
 
@@ -78,6 +79,13 @@ class NavigatorAgent:
     ) -> DiscoveryRunResult:
         limit = max_pages_per_category or config.crawl.max_pages_per_category
         browser_timeout = timeout_ms or config.crawl.browser_timeout_ms
+        crawl_controller = PoliteCrawlController(
+            CrawlControlConfig(
+                rate_limit_seconds=config.crawl.rate_limit_seconds,
+                max_attempts=config.crawl.max_attempts,
+                retry_backoff_seconds=config.crawl.retry_backoff_seconds,
+            )
+        )
         categories: list[CategoryDiscoverySummary] = []
         for seed in config.seed_categories:
             categories.append(
@@ -86,6 +94,7 @@ class NavigatorAgent:
                     max_pages=limit,
                     timeout_ms=browser_timeout,
                     headless=headless,
+                    crawl_controller=crawl_controller,
                 )
             )
         return DiscoveryRunResult(
@@ -99,6 +108,7 @@ class NavigatorAgent:
         max_pages: int,
         timeout_ms: int,
         headless: bool,
+        crawl_controller: PoliteCrawlController,
     ) -> CategoryDiscoverySummary:
         summary = CategoryDiscoverySummary(
             seed_key=seed.key,
@@ -107,10 +117,12 @@ class NavigatorAgent:
         )
         snapshots: list[PageSnapshot] = []
         try:
-            seed_snapshot = await fetch_page_snapshot(
-                str(seed.url),
-                timeout_ms=timeout_ms,
-                headless=headless,
+            seed_snapshot = await crawl_controller.run(
+                lambda: fetch_page_snapshot(
+                    str(seed.url),
+                    timeout_ms=timeout_ms,
+                    headless=headless,
+                )
             )
             snapshots.append(seed_snapshot)
             summary.discovered_categories = self.category_agent.discover_from_links(
@@ -124,10 +136,12 @@ class NavigatorAgent:
         for category in summary.discovered_categories[: max(0, max_pages - 1)]:
             try:
                 snapshots.append(
-                    await fetch_page_snapshot(
-                        category.url,
-                        timeout_ms=timeout_ms,
-                        headless=headless,
+                    await crawl_controller.run(
+                        lambda category_url=category.url: fetch_page_snapshot(
+                            category_url,
+                            timeout_ms=timeout_ms,
+                            headless=headless,
+                        )
                     )
                 )
             except Exception as exc:

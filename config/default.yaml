@@ -11,9 +11,10 @@ crawl:
   request_timeout_ms: 30000
   browser_timeout_ms: 45000
   rate_limit_seconds: 1.5
+  max_attempts: 2
+  retry_backoff_seconds: 1.0
   concurrency: 2
   max_pages_per_category: 3
   max_products_per_category: 25
   output_dir: output
   checkpoint_db: output/safco.sqlite
-

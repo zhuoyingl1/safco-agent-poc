@@ -18,6 +18,8 @@ class CrawlConfig(BaseModel):
     request_timeout_ms: PositiveInt = 30000
     browser_timeout_ms: PositiveInt = 45000
     rate_limit_seconds: float = Field(default=1.0, ge=0)
+    max_attempts: PositiveInt = 2
+    retry_backoff_seconds: float = Field(default=1.0, ge=0)
     concurrency: PositiveInt = 2
     max_pages_per_category: PositiveInt = 3
     max_products_per_category: PositiveInt = 25
@@ -52,4 +54,3 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError(f"Config must contain a YAML object: {path}")
     return data
-

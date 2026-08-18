@@ -74,7 +74,7 @@ safco-agent discover --config config/default.yaml --output output/discovery.json
 Extract normalized product records from discovered product URLs:
 
 ```powershell
-safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 2 --checkpoint-db output/checkpoints.sqlite
+safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 2 --checkpoint-db output/checkpoints.sqlite --rate-limit-seconds 1.5 --max-attempts 2
 ```
 
 Inspect the SQLite product store:
@@ -156,3 +156,4 @@ Run `safco-agent schema --output docs/product_schema.json` for the machine-reada
 - Prices and stock availability may vary by account state, location, JavaScript loading, or site access controls.
 - Product extraction currently relies on Safco JSON-LD and does not yet parse every visible product table control.
 - Resume mode skips already successful product URLs and therefore writes outputs for newly processed records only.
+- Product extraction applies request spacing and retry controls, but it still runs sequentially in this POC.

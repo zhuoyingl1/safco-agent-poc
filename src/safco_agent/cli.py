@@ -13,6 +13,7 @@ from .agents.product_extractor import ProductExtractorAgent
 from .browser import smoke_check
 from .checkpoint import CheckpointStore
 from .config import load_config
+from .crawl_control import CrawlControlConfig, PoliteCrawlController
 from .models import ProductRecord
 from .quality import build_quality_report_from_jsonl
 from .storage import summarize_sqlite, write_product_outputs
@@ -132,6 +133,9 @@ def extract_products(
     ),
     resume: bool = typer.Option(False, "--resume"),
     force_refresh: bool = typer.Option(False, "--force-refresh"),
+    rate_limit_seconds: float = typer.Option(1.5, "--rate-limit-seconds"),
+    max_attempts: int = typer.Option(2, "--max-attempts"),
+    retry_backoff_seconds: float = typer.Option(1.0, "--retry-backoff-seconds"),
     timeout_ms: int = typer.Option(45000, "--timeout-ms"),
     headed: bool = typer.Option(False, "--headed"),
 ) -> None:
@@ -149,6 +153,9 @@ def extract_products(
                 checkpoint_db=checkpoint_db,
                 resume=resume,
                 force_refresh=force_refresh,
+                rate_limit_seconds=rate_limit_seconds,
+                max_attempts=max_attempts,
+                retry_backoff_seconds=retry_backoff_seconds,
                 timeout_ms=timeout_ms,
                 headless=not headed,
             )
@@ -219,6 +226,9 @@ async def _extract_products_from_discovery(
     checkpoint_db: Path | None,
     resume: bool,
     force_refresh: bool,
+    rate_limit_seconds: float,
+    max_attempts: int,
+    retry_backoff_seconds: float,
     timeout_ms: int,
     headless: bool,
 ) -> dict[str, object]:
@@ -234,6 +244,13 @@ async def _extract_products_from_discovery(
     )
     extractor = ProductExtractorAgent()
     checkpoint_store = CheckpointStore(checkpoint_db) if checkpoint_db else None
+    crawl_controller = PoliteCrawlController(
+        CrawlControlConfig(
+            rate_limit_seconds=rate_limit_seconds,
+            max_attempts=max_attempts,
+            retry_backoff_seconds=retry_backoff_seconds,
+        )
+    )
     run_id = str(uuid4())
     records: list[ProductRecord] = []
     errors: list[dict[str, str]] = []
@@ -247,10 +264,12 @@ async def _extract_products_from_discovery(
             skipped_urls.append(candidate.url)
             continue
         try:
-            snapshot = await fetch_page_snapshot(
-                candidate.url,
-                timeout_ms=timeout_ms,
-                headless=headless,
+            snapshot = await crawl_controller.run(
+                lambda product_url=candidate.url: fetch_page_snapshot(
+                    product_url,
+                    timeout_ms=timeout_ms,
+                    headless=headless,
+                )
             )
             extracted_records = extractor.extract(
                 snapshot,
@@ -295,6 +314,9 @@ async def _extract_products_from_discovery(
         "checkpoint_db": str(checkpoint_db) if checkpoint_db else None,
         "resume": resume,
         "force_refresh": force_refresh,
+        "rate_limit_seconds": rate_limit_seconds,
+        "max_attempts": max_attempts,
+        "retry_backoff_seconds": retry_backoff_seconds,
         "skipped_urls": skipped_urls,
         "errors": errors,
     }

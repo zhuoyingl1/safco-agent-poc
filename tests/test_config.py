@@ -12,4 +12,5 @@ def test_load_default_config() -> None:
         "sutures_surgical",
     ]
     assert config.crawl.concurrency == 2
-
+    assert config.crawl.max_attempts == 2
+    assert config.crawl.retry_backoff_seconds == 1.0
