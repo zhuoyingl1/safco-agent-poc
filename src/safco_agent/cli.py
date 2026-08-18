@@ -12,6 +12,7 @@ from .agents.product_extractor import ProductExtractorAgent
 from .browser import smoke_check
 from .config import load_config
 from .models import ProductRecord
+from .storage import summarize_sqlite, write_product_outputs
 
 app = typer.Typer(help="Safco Dental agent-based scraping POC.")
 
@@ -111,6 +112,11 @@ def discover(
 def extract_products(
     discovery: Path = typer.Option(Path("output/discovery.json"), "--discovery", "-d"),
     output: Path = typer.Option(Path("output/products.jsonl"), "--output", "-o"),
+    csv_output: Optional[Path] = typer.Option(Path("output/products.csv"), "--csv-output"),
+    sqlite_output: Optional[Path] = typer.Option(
+        Path("output/safco.sqlite"),
+        "--sqlite-output",
+    ),
     summary_output: Path = typer.Option(
         Path("output/extraction-summary.json"),
         "--summary-output",
@@ -126,6 +132,8 @@ def extract_products(
             _extract_products_from_discovery(
                 discovery=discovery,
                 output=output,
+                csv_output=csv_output,
+                sqlite_output=sqlite_output,
                 summary_output=summary_output,
                 max_products=max_products,
                 max_products_per_category=max_products_per_category,
@@ -139,11 +147,28 @@ def extract_products(
         f"Wrote {result['record_count']} product records from "
         f"{result['visited_product_url_count']} product URLs to {output}"
     )
+    if csv_output:
+        typer.echo(f"Wrote CSV export to {csv_output}")
+    if sqlite_output:
+        typer.echo(f"Wrote SQLite store to {sqlite_output}")
+
+
+@app.command("inspect-store")
+def inspect_store(
+    sqlite_path: Path = typer.Option(Path("output/safco.sqlite"), "--sqlite", "-s"),
+    limit: int = typer.Option(5, "--limit"),
+) -> None:
+    """Inspect the SQLite product store."""
+    if not sqlite_path.exists():
+        raise typer.BadParameter(f"SQLite file not found: {sqlite_path}")
+    typer.echo(json.dumps(summarize_sqlite(sqlite_path, limit=limit), indent=2))
 
 
 async def _extract_products_from_discovery(
     discovery: Path,
     output: Path,
+    csv_output: Path | None,
+    sqlite_output: Path | None,
     summary_output: Path,
     max_products: int | None,
     max_products_per_category: int,
@@ -179,10 +204,12 @@ async def _extract_products_from_discovery(
         except Exception as exc:
             errors.append({"url": candidate.url, "error": str(exc)})
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", encoding="utf-8") as handle:
-        for record in records:
-            handle.write(json.dumps(record.model_dump(mode="json")) + "\n")
+    write_product_outputs(
+        records,
+        jsonl_path=output,
+        csv_path=csv_output,
+        sqlite_path=sqlite_output,
+    )
 
     summary = {
         "visited_product_url_count": len(candidates),
@@ -194,6 +221,9 @@ async def _extract_products_from_discovery(
             1 for record in records if record.extraction_status.value == "partial"
         ),
         "failed_url_count": len(errors),
+        "jsonl_output": str(output),
+        "csv_output": str(csv_output) if csv_output else None,
+        "sqlite_output": str(sqlite_output) if sqlite_output else None,
         "errors": errors,
     }
     summary_output.parent.mkdir(parents=True, exist_ok=True)

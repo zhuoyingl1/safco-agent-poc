@@ -252,7 +252,10 @@ class ProductExtractorAgent:
         if payload.get("@id"):
             specs["source_id"] = payload["@id"]
         if description:
-            for key, value in re.findall(r"([A-Z][A-Za-z /-]{2,30}):\s*([^;]+)", description):
+            for key, value in re.findall(
+                r"(?:^|[.;]\s*)([A-Z][A-Za-z /-]{2,30}):\s*([^;]+)",
+                description,
+            ):
                 specs[key.strip().lower().replace(" ", "_")] = value.strip()
         return specs
 
