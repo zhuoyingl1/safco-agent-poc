@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-08-18T05:21:21.313194Z",
+  "scraped_at": "2026-08-18T18:16:35.686356Z",
   "seed_category_count": 2,
   "categories": [
     {
@@ -189,7 +189,7 @@
         },
         {
           "url": "https://www.safcodental.com/product/aquaprene-reg",
-          "text": "Cranberry AquaPrene 4.0 As low as $33.99 Promo Shop Now",
+          "text": "Cranberry AquaPrene 4.3 As low as $33.99 Promo Shop Now",
           "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
           "source_category_key": "gloves",
           "source_category_name": "Dental Exam Gloves"
@@ -224,7 +224,7 @@
         },
         {
           "url": "https://www.safcodental.com/product/flexaprene-green",
-          "text": "Halyard Flexaprene Green 4.5 As low as $28.59 Shop Now",
+          "text": "Halyard Flexaprene Green 4.5 As low as $39.99 Shop Now",
           "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
           "source_category_key": "gloves",
           "source_category_name": "Dental Exam Gloves"
@@ -457,7 +457,7 @@
         },
         {
           "url": "https://www.safcodental.com/product/r-t-r-syringe",
-          "text": "Septodont R.T.R.+ Syringe As low as $152.99 Shop Now",
+          "text": "Septodont R.T.R.+ Syringe 5.0 As low as $152.99 Shop Now",
           "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
           "source_category_key": "sutures_surgical",
           "source_category_name": "Sutures & surgical products"
@@ -471,7 +471,7 @@
         },
         {
           "url": "https://www.safcodental.com/product/guidor-reg-e-em-asy-graft-reg-em-classic",
-          "text": "Collagen Matrix Inc Guidor Easy-Graft Classic As low as $236.99 Shop Now",
+          "text": "Collagen Matrix Inc Guidor Easy-Graft Classic 5.0 As low as $236.99 Shop Now",
           "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
           "source_category_key": "sutures_surgical",
           "source_category_name": "Sutures & surgical products"

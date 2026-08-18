@@ -1,97 +1,102 @@
 {
   "source_path": "output\\products.jsonl",
-  "record_count": 13,
-  "complete_record_count": 13,
+  "record_count": 34,
+  "complete_record_count": 34,
   "partial_record_count": 0,
   "failed_record_count": 0,
   "field_coverage": [
     {
       "field": "parent_product_name",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "variant_name",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "brand",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "sku",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "item_number",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "category_path",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "product_url",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "price",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "unit_pack_size",
-      "present_count": 11,
-      "total_count": 13,
-      "coverage": 0.8462
+      "present_count": 25,
+      "total_count": 34,
+      "coverage": 0.7353
     },
     {
       "field": "availability",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "description",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "specifications",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     },
     {
       "field": "image_urls",
-      "present_count": 13,
-      "total_count": 13,
+      "present_count": 34,
+      "total_count": 34,
       "coverage": 1.0
     }
   ],
   "category_counts": {
-    "Dental Supplies > Dental Exam Gloves > Nitrile gloves": 5,
+    "Dental Supplies > Dental Exam Gloves > Nitrile gloves": 20,
+    "Dental Supplies > Sutures & surgical products > Surgical medicaments and packing": 6,
     "Dental Supplies > Dental Exam Gloves > Latex gloves": 4,
-    "Dental Supplies > Sutures & surgical products > Surgical medicaments and packing": 4
+    "Dental Supplies > Sutures & surgical products > Bone grafting tissue augmentation": 4
   },
   "brand_counts": {
+    "Dash": 10,
     "Supermax": 9,
+    "Cranberry": 5,
+    "Surgical Esthetics": 4,
     "Septodont": 3,
+    "Ethicon": 2,
     "Medicom": 1
   },
   "error_counts": {},

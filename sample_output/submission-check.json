@@ -11,11 +11,11 @@
     "quality_report_has_no_warnings": true
   },
   "metrics": {
-    "jsonl_record_count": 13,
-    "csv_record_count": 13,
-    "sqlite_record_count": 13,
-    "extraction_summary_record_count": 13,
-    "quality_report_record_count": 13,
+    "jsonl_record_count": 34,
+    "csv_record_count": 34,
+    "sqlite_record_count": 34,
+    "extraction_summary_record_count": 34,
+    "quality_report_record_count": 34,
     "failed_url_count": 0
   },
   "missing_files": [],

@@ -80,7 +80,7 @@ safco-agent discover --config config/default.yaml --output output/discovery.json
 Extract normalized product records from discovered product URLs:
 
 ```powershell
-safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 2 --checkpoint-db output/checkpoints.sqlite --rate-limit-seconds 1.5 --max-attempts 2
+safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 5 --checkpoint-db output/checkpoints.sqlite --rate-limit-seconds 1.5 --max-attempts 2
 ```
 
 Inspect the SQLite product store:
