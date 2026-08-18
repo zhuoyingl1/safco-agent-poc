@@ -107,6 +107,12 @@ Build a data quality report:
 safco-agent quality-report --input output/products.jsonl --output output/quality-report.json
 ```
 
+Validate sample output readiness:
+
+```powershell
+safco-agent submission-check --output output/submission-check.json
+```
+
 Run tests:
 
 ```powershell
@@ -220,6 +226,7 @@ The sample workflow writes:
 - `output/extraction-summary.json`: extraction run summary
 - `output/checkpoints.sqlite`: product URL checkpoint state
 - `output/quality-report.json`: data quality and field coverage report
+- `output/submission-check.json`: final output consistency check
 
 ## Near-Term Roadmap
 

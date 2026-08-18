@@ -17,6 +17,7 @@ from .crawl_control import CrawlControlConfig, PoliteCrawlController
 from .models import ProductRecord
 from .quality import build_quality_report_from_jsonl
 from .storage import summarize_sqlite, write_product_outputs
+from .submission import run_submission_check
 
 app = typer.Typer(help="Safco Dental agent-based scraping POC.")
 
@@ -212,6 +213,38 @@ def quality_report(
     typer.echo(
         f"Wrote quality report to {output} with "
         f"{report.record_count} records and {len(report.warnings)} warnings"
+    )
+
+
+@app.command("submission-check")
+def submission_check(
+    discovery: Path = typer.Option(Path("output/discovery.json"), "--discovery"),
+    products_jsonl: Path = typer.Option(Path("output/products.jsonl"), "--products-jsonl"),
+    products_csv: Path = typer.Option(Path("output/products.csv"), "--products-csv"),
+    sqlite_path: Path = typer.Option(Path("output/safco.sqlite"), "--sqlite"),
+    extraction_summary: Path = typer.Option(
+        Path("output/extraction-summary.json"),
+        "--extraction-summary",
+    ),
+    quality_report_path: Path = typer.Option(
+        Path("output/quality-report.json"),
+        "--quality-report",
+    ),
+    output: Path = typer.Option(Path("output/submission-check.json"), "--output", "-o"),
+) -> None:
+    """Validate that sample outputs are present and internally consistent."""
+    result = run_submission_check(
+        discovery_path=discovery,
+        products_jsonl_path=products_jsonl,
+        products_csv_path=products_csv,
+        sqlite_path=sqlite_path,
+        extraction_summary_path=extraction_summary,
+        quality_report_path=quality_report_path,
+    )
+    result.write_json(output)
+    typer.echo(
+        f"Wrote submission check to {output} "
+        f"with status {'ok' if result.ok else 'not ok'}"
     )
 
 
