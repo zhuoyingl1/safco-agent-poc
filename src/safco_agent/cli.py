@@ -17,7 +17,7 @@ from .crawl_control import CrawlControlConfig, PoliteCrawlController
 from .models import ProductRecord
 from .quality import build_quality_report_from_jsonl
 from .storage import summarize_sqlite, write_product_outputs
-from .submission import run_submission_check
+from .submission import export_sample_outputs, run_submission_check
 
 app = typer.Typer(help="Safco Dental agent-based scraping POC.")
 
@@ -246,6 +246,19 @@ def submission_check(
         f"Wrote submission check to {output} "
         f"with status {'ok' if result.ok else 'not ok'}"
     )
+
+
+@app.command("export-sample-output")
+def export_sample_output(
+    source_dir: Path = typer.Option(Path("output"), "--source-dir"),
+    target_dir: Path = typer.Option(Path("sample_output"), "--target-dir"),
+) -> None:
+    """Copy reviewer-friendly sample outputs into a commit-ready directory."""
+    try:
+        copied = export_sample_outputs(source_dir=source_dir, target_dir=target_dir)
+    except FileNotFoundError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Copied {len(copied)} sample output files to {target_dir}")
 
 
 async def _extract_products_from_discovery(

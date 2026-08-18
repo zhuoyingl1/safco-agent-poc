@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": {
+    "required_files_exist": true,
+    "jsonl_has_records": true,
+    "csv_count_matches_jsonl": true,
+    "sqlite_count_matches_jsonl": true,
+    "summary_count_matches_jsonl": true,
+    "quality_count_matches_jsonl": true,
+    "no_failed_urls": true,
+    "quality_report_has_no_warnings": true
+  },
+  "metrics": {
+    "jsonl_record_count": 13,
+    "csv_record_count": 13,
+    "sqlite_record_count": 13,
+    "extraction_summary_record_count": 13,
+    "quality_report_record_count": 13,
+    "failed_url_count": 0
+  },
+  "missing_files": [],
+  "warnings": []
+}

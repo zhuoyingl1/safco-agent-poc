@@ -1,0 +1,497 @@
+{
+  "scraped_at": "2026-08-18T05:21:21.313194Z",
+  "seed_category_count": 2,
+  "categories": [
+    {
+      "seed_key": "gloves",
+      "seed_name": "Dental Exam Gloves",
+      "seed_url": "https://www.safcodental.com/catalog/gloves",
+      "discovered_categories": [
+        {
+          "name": "Chloroprene Gloves",
+          "url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "parent_url": "https://www.safcodental.com/catalog/gloves"
+        },
+        {
+          "name": "Glove Holder",
+          "url": "https://www.safcodental.com/catalog/gloves/glove-holder",
+          "parent_url": "https://www.safcodental.com/catalog/gloves"
+        },
+        {
+          "name": "Latex Gloves",
+          "url": "https://www.safcodental.com/catalog/gloves/latex-gloves",
+          "parent_url": "https://www.safcodental.com/catalog/gloves"
+        },
+        {
+          "name": "Nitrile Gloves",
+          "url": "https://www.safcodental.com/catalog/gloves/nitrile-gloves",
+          "parent_url": "https://www.safcodental.com/catalog/gloves"
+        },
+        {
+          "name": "Surgical Gloves",
+          "url": "https://www.safcodental.com/catalog/gloves/surgical-gloves",
+          "parent_url": "https://www.safcodental.com/catalog/gloves"
+        },
+        {
+          "name": "Vinyl Gloves",
+          "url": "https://www.safcodental.com/catalog/gloves/vinyl-gloves",
+          "parent_url": "https://www.safcodental.com/catalog/gloves"
+        }
+      ],
+      "visited_pages": [
+        {
+          "requested_url": "https://www.safcodental.com/catalog/gloves",
+          "final_url": "https://www.safcodental.com/catalog/gloves",
+          "title": "Dental Exam Gloves | Safco Dental Supply",
+          "h1": "Dental Exam Gloves",
+          "page_type": "listing",
+          "product_link_count": 15,
+          "category_link_count": 137
+        },
+        {
+          "requested_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "final_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "title": "Chloroprene Gloves - Bulk Purchasing Options",
+          "h1": "Chloroprene gloves",
+          "page_type": "listing",
+          "product_link_count": 10,
+          "category_link_count": 119
+        },
+        {
+          "requested_url": "https://www.safcodental.com/catalog/gloves/glove-holder",
+          "final_url": "https://www.safcodental.com/catalog/gloves/glove-holder",
+          "title": "Glove Holders - Organize & Protect Your Dental Gloves",
+          "h1": "Glove Holder",
+          "page_type": "listing",
+          "product_link_count": 1,
+          "category_link_count": 119
+        }
+      ],
+      "product_urls": [
+        {
+          "url": "https://www.safcodental.com/product/aurelia-reg-amazing-reg",
+          "text": "Supermax Aurelia Amazing 5.0 As low as $20.99 Promo Price Drop Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/aurelia-reg-vibrant-trade",
+          "text": "Supermax Aurelia Vibrant 4.5 As low as $7.99 Promo Price Drop Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/compac-nitrile",
+          "text": "Cranberry Compac Nitrile Gloves As low as $8.49 Promo New! Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/alasta-pro",
+          "text": "Dash Alasta PRO with Glide Assist Technology As low as $28.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/black-maxx-sup-reg-sup",
+          "text": "Dash Black Maxx Thin with Glide Assist Technology As low as $28.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/aquasoft",
+          "text": "Halyard Aquasoft 4.8 As low as $47.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/beesure-reg-superslim-trade-nitrile",
+          "text": "EcoBee BeeSure SuperSlim Nitrile 4.8 As low as $24.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/microflex-sup-reg-sup-ultraform-sup-trade-sup",
+          "text": "Ansell Microflex Ultraform 4.3 As low as $28.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/microflex-reg-xceed-reg",
+          "text": "Ansell Microflex Xceed 5.0 As low as $29.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/alasta-reg-aloe",
+          "text": "Dash Alasta aloe 5.0 As low as $13.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/lavender-nitrile",
+          "text": "Halyard Lavender Nitrile 4.7 As low as $42.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/alasta-sup-reg-sup",
+          "text": "Dash Alasta 4.2 As low as $13.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/safco-nitrilex-black",
+          "text": "Safco Safco Nitrilex Black 5.0 As low as $13.29 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/safco-nitrilex-surpass-trade",
+          "text": "Safco Safco Nitrilex Surpass Nitrile Gloves 4.9 As low as $15.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/revosoft-reg-nitrile-gloves",
+          "text": "Cranberry RevoSoft 5.0 As low as $28.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/ocean-pacific-sup-reg-sup-neonatural-sup-trade-sup",
+          "text": "Medicom Ocean Pacific NeoNatural As low as $23.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/true-comfort-reg-blu",
+          "text": "Dash True Comfort Blu As low as $18.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/aquaprene-reg",
+          "text": "Cranberry AquaPrene 4.0 As low as $33.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/safco-ez-green-chloroprene",
+          "text": "Safco Safco EZ Green Chloroprene 5.0 As low as $17.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/beesure-reg-neogrene-trade",
+          "text": "EcoBee BeeSure NeoGrene 5.0 As low as $31.79 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/microflex-sup-reg-sup-neogard-sup-reg-sup",
+          "text": "Ansell Neogard 5.0 As low as $23.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/microflex-sup-reg-sup-neosoft-trade",
+          "text": "Ansell Microflex NeoSoft As low as $18.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/flexaprene-green",
+          "text": "Halyard Flexaprene Green 4.5 As low as $28.59 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/micro-touch-sup-reg-sup-affinity-sup-reg-sup",
+          "text": "Ansell Micro-Touch Affinity 5.0 As low as $23.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/microflex-sup-reg-sup-neopro-sup-reg-sup",
+          "text": "Ansell Microflex NeoPro 5.0 As low as $24.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/chloroprene-gloves",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        },
+        {
+          "url": "https://www.safcodental.com/product/wire-glove-box-holder",
+          "text": "Unimed Wire glove box holder As low as $21.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/gloves/glove-holder",
+          "source_category_key": "gloves",
+          "source_category_name": "Dental Exam Gloves"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "seed_key": "sutures_surgical",
+      "seed_name": "Sutures & surgical products",
+      "seed_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+      "discovered_categories": [
+        {
+          "name": "Bone Grafting & Tissue Augmentation",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "Cold Packs",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/cold-packs",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "IV Fluids and Administration Sets",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/iv-fluids-and-administration-sets",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "Periodontal Dressings",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/periodontal-dressings",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "Surgical Blades and Scalpels",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/surgical-blades-and-scalpels",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "Surgical Medicaments and Packing",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/surgical-medicaments-and-packing",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "Suture Needles",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/suture-needles",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        },
+        {
+          "name": "Sutures",
+          "url": "https://www.safcodental.com/catalog/sutures-surgical-products/sutures",
+          "parent_url": "https://www.safcodental.com/catalog/sutures-surgical-products"
+        }
+      ],
+      "visited_pages": [
+        {
+          "requested_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "final_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "title": "Sutures & Surgical Products | Safco Dental Supply",
+          "h1": "Sutures & surgical products",
+          "page_type": "listing",
+          "product_link_count": 15,
+          "category_link_count": 138
+        },
+        {
+          "requested_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "final_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "title": "Bone Grafting Tissue Augmentation - Bulk Pricing",
+          "h1": "Bone grafting tissue augmentation",
+          "page_type": "listing",
+          "product_link_count": 14,
+          "category_link_count": 119
+        },
+        {
+          "requested_url": "https://www.safcodental.com/catalog/sutures-surgical-products/cold-packs",
+          "final_url": "https://www.safcodental.com/catalog/sutures-surgical-products/cold-packs",
+          "title": "Cold Packs - Disposable & Instant Options",
+          "h1": "Cold packs",
+          "page_type": "listing",
+          "product_link_count": 2,
+          "category_link_count": 119
+        }
+      ],
+      "product_urls": [
+        {
+          "url": "https://www.safcodental.com/product/orasoothe-reg-sockit-gel",
+          "text": "Septodont OraSoothe Sockit! 5.0 As low as $9.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/hemostat-sup-trade-sup",
+          "text": "Medicom HemoStat 5.0 As low as $125.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/surgifoam-reg",
+          "text": "Ethicon Surgifoam 5.0 As low as $214.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/regenafill-sup-trade-sup-bone-graft-plug",
+          "text": "Surgical Esthetics Regenafill Bone Graft Plug As low as $259.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/ossify-sup-reg-sup-cortical-bone-sheet",
+          "text": "Surgical Esthetics Ossify Cortical Bone Sheet As low as $149.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/ossify-sup-reg-sup-dbm-cortical-fiber-bone-graft",
+          "text": "Surgical Esthetics Ossify DBM Cortical Fiber Bone Graft As low as $121.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/ossify-sup-reg-sup-min-demin-cortical-cancellous-bone-graft",
+          "text": "Surgical Esthetics Ossify Min/Demin Cortical Cancellous Bone Graft As low as $79.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/ossif-i-sem-trade",
+          "text": "Surgical Esthetics OSSIF-i sem As low as $41.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/foundation-trade",
+          "text": "J. Morita Foundation 5.0 As low as $420.49 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/collashield-trade-collagen-membrane",
+          "text": "Surgical Esthetics CollaShield Collagen Membrane As low as $128.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/soft-tissue-trimmer",
+          "text": "Kerr Rotary Soft Tissue Trimmer As low as $144.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/feather-sup-reg-nbsp-sup-microsurgical-blades",
+          "text": "J. Morita Feather Microsurgical Blades As low as $89.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/perma-sharp-reg-sutures",
+          "text": "Hu-Friedy Perma Sharp sutures 5.0 As low as $73.99 Promo Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/safco-surestitch-trade-sutures",
+          "text": "Safco Safco SureStitch sutures 5.0 As low as $30.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/heliplug-reg",
+          "text": "Integra Miltex HeliPlug 4.8 As low as $145.49 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/healiaid-reg-strong-nbsp-strong-collagen",
+          "text": "Surgical Esthetics HealiAid 4.0 As low as $106.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/dentalprox-veragraft-trade-dental-powder",
+          "text": "DentalProX DentalProX VeraGraft Dental Powder As low as $28.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/r-t-r-membrane",
+          "text": "Septodont R.T.R. Membrane As low as $108.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/r-t-r-syringe",
+          "text": "Septodont R.T.R.+ Syringe As low as $152.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/helimend-trade-and-helimend-trade-advanced",
+          "text": "Integra Miltex HeliMend As low as $102.59 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/guidor-reg-e-em-asy-graft-reg-em-classic",
+          "text": "Collagen Matrix Inc Guidor Easy-Graft Classic As low as $236.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/bone-grafting",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/coldstar-disposable-instant-non-insulated-cold-pack",
+          "text": "Coldstar Coldstar Disposable Instant Non-Insulated Cold Pack As low as $20.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/cold-packs",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        },
+        {
+          "url": "https://www.safcodental.com/product/instant-cold-pack",
+          "text": "Halyard Instant Cold Pack 5.0 As low as $22.99 Shop Now",
+          "source_page_url": "https://www.safcodental.com/catalog/sutures-surgical-products/cold-packs",
+          "source_category_key": "sutures_surgical",
+          "source_category_name": "Sutures & surgical products"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

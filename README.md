@@ -113,6 +113,12 @@ Validate sample output readiness:
 safco-agent submission-check --output output/submission-check.json
 ```
 
+Copy sample outputs into the commit-ready sample directory:
+
+```powershell
+safco-agent export-sample-output --source-dir output --target-dir sample_output
+```
+
 Run tests:
 
 ```powershell
@@ -227,6 +233,8 @@ The sample workflow writes:
 - `output/checkpoints.sqlite`: product URL checkpoint state
 - `output/quality-report.json`: data quality and field coverage report
 - `output/submission-check.json`: final output consistency check
+
+The repository also includes `sample_output/`, a reviewer-friendly copy of the standard JSON, JSONL, and CSV sample outputs. SQLite files are generated locally by the workflow rather than committed.
 
 ## Near-Term Roadmap
 

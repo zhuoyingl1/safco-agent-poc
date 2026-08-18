@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +24,29 @@ class SubmissionCheckResult(BaseModel):
             json.dumps(self.model_dump(mode="json"), indent=2) + "\n",
             encoding="utf-8",
         )
+
+
+SAMPLE_OUTPUT_FILES = [
+    "discovery.json",
+    "products.jsonl",
+    "products.csv",
+    "extraction-summary.json",
+    "quality-report.json",
+    "submission-check.json",
+]
+
+
+def export_sample_outputs(source_dir: Path, target_dir: Path) -> list[str]:
+    target_dir.mkdir(parents=True, exist_ok=True)
+    copied: list[str] = []
+    for filename in SAMPLE_OUTPUT_FILES:
+        source_path = source_dir / filename
+        if not source_path.exists():
+            raise FileNotFoundError(f"Sample output source file not found: {source_path}")
+        target_path = target_dir / filename
+        shutil.copyfile(source_path, target_path)
+        copied.append(str(target_path))
+    return copied
 
 
 def run_submission_check(
@@ -103,4 +127,3 @@ def _count_jsonl(path: Path) -> int:
 def _count_csv_rows(path: Path) -> int:
     with path.open("r", encoding="utf-8", newline="") as handle:
         return sum(1 for _ in csv.DictReader(handle))
-

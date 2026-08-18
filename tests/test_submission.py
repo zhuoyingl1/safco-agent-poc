@@ -3,7 +3,7 @@ import json
 from safco_agent.models import ExtractionStatus, Price, ProductRecord
 from safco_agent.quality import build_quality_report
 from safco_agent.storage import write_csv, write_jsonl, write_sqlite
-from safco_agent.submission import run_submission_check
+from safco_agent.submission import SAMPLE_OUTPUT_FILES, export_sample_outputs, run_submission_check
 
 
 def test_submission_check_passes_for_consistent_outputs(tmp_path) -> None:
@@ -65,4 +65,17 @@ def test_submission_check_fails_when_required_file_is_missing(tmp_path) -> None:
     assert result.ok is False
     assert result.checks == {"required_files_exist": False}
     assert len(result.missing_files) == 6
+
+
+def test_export_sample_outputs_copies_expected_files(tmp_path) -> None:
+    source_dir = tmp_path / "output"
+    target_dir = tmp_path / "sample_output"
+    source_dir.mkdir()
+    for filename in SAMPLE_OUTPUT_FILES:
+        (source_dir / filename).write_text(f"{filename}\n", encoding="utf-8")
+
+    copied = export_sample_outputs(source_dir=source_dir, target_dir=target_dir)
+
+    assert len(copied) == len(SAMPLE_OUTPUT_FILES)
+    assert sorted(path.name for path in target_dir.iterdir()) == sorted(SAMPLE_OUTPUT_FILES)
 
