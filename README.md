@@ -13,9 +13,10 @@ This is the 0-2 hour foundation:
 - Typer CLI
 - Playwright smoke check entrypoint
 - Category discovery and product URL collection
+- JSON-LD product detail extraction for product variants
 - Basic tests for config, schema, page classification, and URL collection
 
-The extraction crawl is intentionally not implemented yet. The next slice should add product detail extraction.
+The extraction crawl now supports a small product-detail extraction slice. The next slice should add CSV and SQLite writers plus richer product table fallbacks.
 
 ## Target Categories
 
@@ -70,6 +71,12 @@ Discover child categories and product detail URLs from configured seeds:
 safco-agent discover --config config/default.yaml --output output/discovery.json
 ```
 
+Extract normalized product records from discovered product URLs:
+
+```powershell
+safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 2
+```
+
 Run tests:
 
 ```powershell
@@ -113,14 +120,14 @@ Run `safco-agent schema --output docs/product_schema.json` for the machine-reada
 
 ## Near-Term Roadmap
 
-1. Add product detail extraction for name, brand, price, breadcrumbs, description, specs, and images.
-2. Add variant table extraction.
-3. Add CSV/JSONL/SQLite writers.
-4. Add checkpointing for resumable category and product crawls.
-5. Add run report with field coverage and failure counts.
+1. Add CSV and SQLite writers.
+2. Add product table extraction fallback when JSON-LD is incomplete.
+3. Add checkpointing for resumable category and product crawls.
+4. Add field coverage reporting.
+5. Add selector drift and quality monitoring.
 
 ## Known Limitations
 
 - Playwright must be installed before browser smoke checks can run.
 - Prices and stock availability may vary by account state, location, JavaScript loading, or site access controls.
-- The current slice discovers category and product URLs, but does not scrape product records yet.
+- Product extraction currently relies on Safco JSON-LD and does not yet parse every visible product table control.

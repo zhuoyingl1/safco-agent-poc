@@ -17,6 +17,7 @@ class PageSnapshot(BaseModel):
     title: str
     h1: str | None
     links: list[LinkCandidate] = Field(default_factory=list)
+    json_ld: list[str] = Field(default_factory=list)
     body_sample: str
     body_text: str = Field(default="", exclude=True)
 
@@ -93,6 +94,15 @@ async def fetch_page_snapshot(
             })).filter(x => x.href)
             """,
         )
+        json_ld_payload = await page.eval_on_selector_all(
+            "script",
+            """
+            els => els
+                .filter(script => script.type === "application/ld+json")
+                .map(script => script.textContent || "")
+                .filter(Boolean)
+            """,
+        )
         body_text = await page.locator("body").inner_text(timeout=timeout_ms)
         snapshot = PageSnapshot(
             requested_url=url,
@@ -100,6 +110,7 @@ async def fetch_page_snapshot(
             title=title,
             h1=h1,
             links=[LinkCandidate.model_validate(link) for link in links_payload],
+            json_ld=json_ld_payload,
             body_sample=" ".join(body_text.split())[:1000],
             body_text=body_text,
         )

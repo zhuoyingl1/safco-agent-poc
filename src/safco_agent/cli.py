@@ -7,9 +7,10 @@ from typing import Optional
 
 import typer
 
+from .agents.navigator import NavigatorAgent, ProductUrlCandidate
+from .agents.product_extractor import ProductExtractorAgent
 from .browser import smoke_check
 from .config import load_config
-from .agents.navigator import NavigatorAgent
 from .models import ProductRecord
 
 app = typer.Typer(help="Safco Dental agent-based scraping POC.")
@@ -104,6 +105,123 @@ def discover(
         f"Wrote discovery result to {output} "
         f"with {result.seed_category_count} seeds and {result.total_product_urls} product URLs"
     )
+
+
+@app.command("extract-products")
+def extract_products(
+    discovery: Path = typer.Option(Path("output/discovery.json"), "--discovery", "-d"),
+    output: Path = typer.Option(Path("output/products.jsonl"), "--output", "-o"),
+    summary_output: Path = typer.Option(
+        Path("output/extraction-summary.json"),
+        "--summary-output",
+    ),
+    max_products: Optional[int] = typer.Option(None, "--max-products"),
+    max_products_per_category: int = typer.Option(3, "--max-products-per-category"),
+    timeout_ms: int = typer.Option(45000, "--timeout-ms"),
+    headed: bool = typer.Option(False, "--headed"),
+) -> None:
+    """Extract normalized product records from discovered product URLs."""
+    try:
+        result = asyncio.run(
+            _extract_products_from_discovery(
+                discovery=discovery,
+                output=output,
+                summary_output=summary_output,
+                max_products=max_products,
+                max_products_per_category=max_products_per_category,
+                timeout_ms=timeout_ms,
+                headless=not headed,
+            )
+        )
+    except RuntimeError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(
+        f"Wrote {result['record_count']} product records from "
+        f"{result['visited_product_url_count']} product URLs to {output}"
+    )
+
+
+async def _extract_products_from_discovery(
+    discovery: Path,
+    output: Path,
+    summary_output: Path,
+    max_products: int | None,
+    max_products_per_category: int,
+    timeout_ms: int,
+    headless: bool,
+) -> dict[str, int]:
+    from .browser import fetch_page_snapshot
+
+    if not discovery.exists():
+        raise RuntimeError(f"Discovery file not found: {discovery}")
+    payload = json.loads(discovery.read_text(encoding="utf-8"))
+    candidates = _product_candidates_from_discovery(
+        payload,
+        max_products=max_products,
+        max_products_per_category=max_products_per_category,
+    )
+    extractor = ProductExtractorAgent()
+    records: list[ProductRecord] = []
+    errors: list[dict[str, str]] = []
+    for candidate in candidates:
+        try:
+            snapshot = await fetch_page_snapshot(
+                candidate.url,
+                timeout_ms=timeout_ms,
+                headless=headless,
+            )
+            records.extend(
+                extractor.extract(
+                    snapshot,
+                    source_category_url=candidate.source_page_url,
+                )
+            )
+        except Exception as exc:
+            errors.append({"url": candidate.url, "error": str(exc)})
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8") as handle:
+        for record in records:
+            handle.write(json.dumps(record.model_dump(mode="json")) + "\n")
+
+    summary = {
+        "visited_product_url_count": len(candidates),
+        "record_count": len(records),
+        "complete_record_count": sum(
+            1 for record in records if record.extraction_status.value == "complete"
+        ),
+        "partial_record_count": sum(
+            1 for record in records if record.extraction_status.value == "partial"
+        ),
+        "failed_url_count": len(errors),
+        "errors": errors,
+    }
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    return summary
+
+
+def _product_candidates_from_discovery(
+    payload: dict,
+    max_products: int | None,
+    max_products_per_category: int,
+) -> list[ProductUrlCandidate]:
+    candidates: list[ProductUrlCandidate] = []
+    seen: set[str] = set()
+    for category in payload.get("categories", []):
+        category_count = 0
+        for item in category.get("product_urls", []):
+            candidate = ProductUrlCandidate.model_validate(item)
+            if candidate.url in seen:
+                continue
+            seen.add(candidate.url)
+            candidates.append(candidate)
+            category_count += 1
+            if category_count >= max_products_per_category:
+                break
+    if max_products is not None:
+        return candidates[:max_products]
+    return candidates
 
 
 if __name__ == "__main__":
