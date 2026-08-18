@@ -1,0 +1,261 @@
+{
+  "$defs": {
+    "ExtractionStatus": {
+      "enum": [
+        "complete",
+        "partial",
+        "failed"
+      ],
+      "title": "ExtractionStatus",
+      "type": "string"
+    },
+    "Price": {
+      "properties": {
+        "raw": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw"
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Amount"
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "USD",
+          "title": "Currency"
+        }
+      },
+      "title": "Price",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "parent_product_name": {
+      "minLength": 1,
+      "title": "Parent Product Name",
+      "type": "string"
+    },
+    "variant_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Variant Name"
+    },
+    "brand": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Brand"
+    },
+    "manufacturer": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Manufacturer"
+    },
+    "sku": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sku"
+    },
+    "item_number": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Item Number"
+    },
+    "mfr_number": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Mfr Number"
+    },
+    "category_path": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Category Path",
+      "type": "array"
+    },
+    "product_url": {
+      "format": "uri",
+      "maxLength": 2083,
+      "minLength": 1,
+      "title": "Product Url",
+      "type": "string"
+    },
+    "source_category_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Category Url"
+    },
+    "price": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Price"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "unit_pack_size": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit Pack Size"
+    },
+    "availability": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Availability"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "specifications": {
+      "additionalProperties": true,
+      "title": "Specifications",
+      "type": "object"
+    },
+    "image_urls": {
+      "items": {
+        "format": "uri",
+        "maxLength": 2083,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Image Urls",
+      "type": "array"
+    },
+    "alternative_products": {
+      "items": {
+        "format": "uri",
+        "maxLength": 2083,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Alternative Products",
+      "type": "array"
+    },
+    "scraped_at": {
+      "format": "date-time",
+      "title": "Scraped At",
+      "type": "string"
+    },
+    "extraction_status": {
+      "$ref": "#/$defs/ExtractionStatus",
+      "default": "partial"
+    },
+    "errors": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Errors",
+      "type": "array"
+    }
+  },
+  "required": [
+    "parent_product_name",
+    "product_url"
+  ],
+  "title": "ProductRecord",
+  "type": "object"
+}
