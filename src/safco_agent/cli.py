@@ -12,6 +12,7 @@ from .agents.product_extractor import ProductExtractorAgent
 from .browser import smoke_check
 from .config import load_config
 from .models import ProductRecord
+from .quality import build_quality_report_from_jsonl
 from .storage import summarize_sqlite, write_product_outputs
 
 app = typer.Typer(help="Safco Dental agent-based scraping POC.")
@@ -162,6 +163,23 @@ def inspect_store(
     if not sqlite_path.exists():
         raise typer.BadParameter(f"SQLite file not found: {sqlite_path}")
     typer.echo(json.dumps(summarize_sqlite(sqlite_path, limit=limit), indent=2))
+
+
+@app.command("quality-report")
+def quality_report(
+    input_path: Path = typer.Option(Path("output/products.jsonl"), "--input", "-i"),
+    output: Path = typer.Option(Path("output/quality-report.json"), "--output", "-o"),
+) -> None:
+    """Build a field coverage and quality report from product JSONL."""
+    try:
+        report = build_quality_report_from_jsonl(input_path)
+    except (FileNotFoundError, ValueError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    report.write_json(output)
+    typer.echo(
+        f"Wrote quality report to {output} with "
+        f"{report.record_count} records and {len(report.warnings)} warnings"
+    )
 
 
 async def _extract_products_from_discovery(

@@ -16,7 +16,7 @@ This is the 0-2 hour foundation:
 - JSON-LD product detail extraction for product variants
 - Basic tests for config, schema, page classification, and URL collection
 
-The extraction crawl now supports a small product-detail extraction slice with JSONL, CSV, and SQLite outputs. The next slice should add richer product table fallbacks and data quality reporting.
+The extraction crawl now supports a small product-detail extraction slice with JSONL, CSV, and SQLite outputs plus a field coverage quality report. The next slice should add richer product table fallbacks.
 
 ## Target Categories
 
@@ -83,6 +83,12 @@ Inspect the SQLite product store:
 safco-agent inspect-store --sqlite output/safco.sqlite --limit 5
 ```
 
+Build a data quality report:
+
+```powershell
+safco-agent quality-report --input output/products.jsonl --output output/quality-report.json
+```
+
 Run tests:
 
 ```powershell
@@ -128,9 +134,9 @@ Run `safco-agent schema --output docs/product_schema.json` for the machine-reada
 
 1. Add product table extraction fallback when JSON-LD is incomplete.
 2. Add checkpointing for resumable category and product crawls.
-3. Add field coverage reporting.
-4. Add selector drift and quality monitoring.
-5. Add optional LLM fallback for irregular pages.
+3. Add selector drift and quality monitoring.
+4. Add optional LLM fallback for irregular pages.
+5. Add production deployment notes and a fuller runbook.
 
 ## Known Limitations
 
