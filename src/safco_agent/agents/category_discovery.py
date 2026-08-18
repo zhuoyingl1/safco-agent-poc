@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from pydantic import BaseModel, Field
+
+from safco_agent.url_utils import canonicalize_url
 
 
-@dataclass(frozen=True)
-class DiscoveredCategory:
-    name: str
+class DiscoveredCategory(BaseModel):
+    name: str = Field(min_length=1)
     url: str
     parent_url: str | None = None
 
@@ -21,9 +22,9 @@ class CategoryDiscoveryAgent:
         discovered: list[DiscoveredCategory] = []
         seen: set[str] = set()
         for label, href in links:
-            if not self._looks_like_child_category(seed_url, href):
+            normalized = canonicalize_url(href)
+            if not self._looks_like_child_category(seed_url, normalized):
                 continue
-            normalized = href.rstrip("/")
             if normalized in seen:
                 continue
             seen.add(normalized)
@@ -38,7 +39,6 @@ class CategoryDiscoveryAgent:
 
     @staticmethod
     def _looks_like_child_category(seed_url: str, href: str) -> bool:
-        seed = seed_url.rstrip("/")
-        target = href.rstrip("/")
+        seed = canonicalize_url(seed_url)
+        target = canonicalize_url(href)
         return target.startswith(seed + "/") and "/product/" not in target
-

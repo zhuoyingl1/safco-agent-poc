@@ -12,9 +12,10 @@ This is the 0-2 hour foundation:
 - Agent responsibility skeleton
 - Typer CLI
 - Playwright smoke check entrypoint
-- Basic tests for config, schema, and page classification
+- Category discovery and product URL collection
+- Basic tests for config, schema, page classification, and URL collection
 
-The extraction crawl is intentionally not implemented yet. The next slice should add category traversal and product URL discovery.
+The extraction crawl is intentionally not implemented yet. The next slice should add product detail extraction.
 
 ## Target Categories
 
@@ -63,6 +64,12 @@ Run a browser smoke check against one target page:
 safco-agent smoke --url https://www.safcodental.com/catalog/gloves --output output/smoke-gloves.json
 ```
 
+Discover child categories and product detail URLs from configured seeds:
+
+```powershell
+safco-agent discover --config config/default.yaml --output output/discovery.json
+```
+
 Run tests:
 
 ```powershell
@@ -106,14 +113,14 @@ Run `safco-agent schema --output docs/product_schema.json` for the machine-reada
 
 ## Near-Term Roadmap
 
-1. Add `CategoryDiscoveryAgent` implementation for the two configured categories.
-2. Add listing traversal and product URL collection with checkpointing.
-3. Add product detail extraction for name, brand, price, breadcrumbs, description, specs, and images.
-4. Add CSV/JSONL/SQLite writers.
+1. Add product detail extraction for name, brand, price, breadcrumbs, description, specs, and images.
+2. Add variant table extraction.
+3. Add CSV/JSONL/SQLite writers.
+4. Add checkpointing for resumable category and product crawls.
 5. Add run report with field coverage and failure counts.
 
 ## Known Limitations
 
 - Playwright must be installed before browser smoke checks can run.
 - Prices and stock availability may vary by account state, location, JavaScript loading, or site access controls.
-- The current slice does not persist crawl state or scrape product records yet.
+- The current slice discovers category and product URLs, but does not scrape product records yet.

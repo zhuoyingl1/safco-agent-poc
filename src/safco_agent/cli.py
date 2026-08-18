@@ -9,6 +9,7 @@ import typer
 
 from .browser import smoke_check
 from .config import load_config
+from .agents.navigator import NavigatorAgent
 from .models import ProductRecord
 
 app = typer.Typer(help="Safco Dental agent-based scraping POC.")
@@ -76,6 +77,34 @@ def smoke(
     typer.echo(json.dumps(result.model_dump(mode="json"), indent=2))
 
 
+@app.command("discover")
+def discover(
+    config: Path = typer.Option(Path("config/default.yaml"), "--config", "-c"),
+    output: Path = typer.Option(Path("output/discovery.json"), "--output", "-o"),
+    max_pages_per_category: Optional[int] = typer.Option(None, "--max-pages-per-category"),
+    timeout_ms: Optional[int] = typer.Option(None, "--timeout-ms"),
+    headed: bool = typer.Option(False, "--headed"),
+) -> None:
+    """Discover subcategories and product detail URLs from configured seeds."""
+    parsed = load_config(config)
+    try:
+        result = asyncio.run(
+            NavigatorAgent().discover(
+                config=parsed,
+                max_pages_per_category=max_pages_per_category,
+                timeout_ms=timeout_ms,
+                headless=not headed,
+            )
+        )
+    except RuntimeError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+
+    result.write_json(output)
+    typer.echo(
+        f"Wrote discovery result to {output} "
+        f"with {result.seed_category_count} seeds and {result.total_product_urls} product URLs"
+    )
+
+
 if __name__ == "__main__":
     app()
-
