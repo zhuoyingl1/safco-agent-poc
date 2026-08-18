@@ -41,12 +41,13 @@ def write_product_outputs(
     jsonl_path: Path,
     csv_path: Path | None = None,
     sqlite_path: Path | None = None,
+    replace_sqlite: bool = True,
 ) -> None:
     write_jsonl(records, jsonl_path)
     if csv_path:
         write_csv(records, csv_path)
     if sqlite_path:
-        write_sqlite(records, sqlite_path)
+        write_sqlite(records, sqlite_path, replace=replace_sqlite)
 
 
 def write_jsonl(records: list[ProductRecord], output_path: Path) -> None:
@@ -65,7 +66,11 @@ def write_csv(records: list[ProductRecord], output_path: Path) -> None:
             writer.writerow(_flatten_record(record))
 
 
-def write_sqlite(records: list[ProductRecord], output_path: Path) -> None:
+def write_sqlite(
+    records: list[ProductRecord],
+    output_path: Path,
+    replace: bool = True,
+) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with sqlite3.connect(output_path) as connection:
         connection.execute(
@@ -97,7 +102,8 @@ def write_sqlite(records: list[ProductRecord], output_path: Path) -> None:
             )
             """
         )
-        connection.execute("DELETE FROM products")
+        if replace:
+            connection.execute("DELETE FROM products")
         rows = [_flatten_record(record) for record in records]
         connection.executemany(
             """

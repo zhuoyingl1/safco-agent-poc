@@ -4,12 +4,14 @@ import asyncio
 import json
 from pathlib import Path
 from typing import Optional
+from uuid import uuid4
 
 import typer
 
 from .agents.navigator import NavigatorAgent, ProductUrlCandidate
 from .agents.product_extractor import ProductExtractorAgent
 from .browser import smoke_check
+from .checkpoint import CheckpointStore
 from .config import load_config
 from .models import ProductRecord
 from .quality import build_quality_report_from_jsonl
@@ -124,6 +126,12 @@ def extract_products(
     ),
     max_products: Optional[int] = typer.Option(None, "--max-products"),
     max_products_per_category: int = typer.Option(3, "--max-products-per-category"),
+    checkpoint_db: Optional[Path] = typer.Option(
+        Path("output/checkpoints.sqlite"),
+        "--checkpoint-db",
+    ),
+    resume: bool = typer.Option(False, "--resume"),
+    force_refresh: bool = typer.Option(False, "--force-refresh"),
     timeout_ms: int = typer.Option(45000, "--timeout-ms"),
     headed: bool = typer.Option(False, "--headed"),
 ) -> None:
@@ -138,6 +146,9 @@ def extract_products(
                 summary_output=summary_output,
                 max_products=max_products,
                 max_products_per_category=max_products_per_category,
+                checkpoint_db=checkpoint_db,
+                resume=resume,
+                force_refresh=force_refresh,
                 timeout_ms=timeout_ms,
                 headless=not headed,
             )
@@ -152,6 +163,8 @@ def extract_products(
         typer.echo(f"Wrote CSV export to {csv_output}")
     if sqlite_output:
         typer.echo(f"Wrote SQLite store to {sqlite_output}")
+    if checkpoint_db:
+        typer.echo(f"Updated checkpoint store at {checkpoint_db}")
 
 
 @app.command("inspect-store")
@@ -163,6 +176,19 @@ def inspect_store(
     if not sqlite_path.exists():
         raise typer.BadParameter(f"SQLite file not found: {sqlite_path}")
     typer.echo(json.dumps(summarize_sqlite(sqlite_path, limit=limit), indent=2))
+
+
+@app.command("inspect-checkpoints")
+def inspect_checkpoints(
+    checkpoint_db: Path = typer.Option(
+        Path("output/checkpoints.sqlite"),
+        "--checkpoint-db",
+    ),
+) -> None:
+    """Inspect crawl checkpoint state."""
+    if not checkpoint_db.exists():
+        raise typer.BadParameter(f"Checkpoint file not found: {checkpoint_db}")
+    typer.echo(json.dumps(CheckpointStore(checkpoint_db).summary(), indent=2))
 
 
 @app.command("quality-report")
@@ -190,9 +216,12 @@ async def _extract_products_from_discovery(
     summary_output: Path,
     max_products: int | None,
     max_products_per_category: int,
+    checkpoint_db: Path | None,
+    resume: bool,
+    force_refresh: bool,
     timeout_ms: int,
     headless: bool,
-) -> dict[str, int]:
+) -> dict[str, object]:
     from .browser import fetch_page_snapshot
 
     if not discovery.exists():
@@ -204,33 +233,54 @@ async def _extract_products_from_discovery(
         max_products_per_category=max_products_per_category,
     )
     extractor = ProductExtractorAgent()
+    checkpoint_store = CheckpointStore(checkpoint_db) if checkpoint_db else None
+    run_id = str(uuid4())
     records: list[ProductRecord] = []
     errors: list[dict[str, str]] = []
+    skipped_urls: list[str] = []
     for candidate in candidates:
+        if checkpoint_store and checkpoint_store.should_skip(
+            candidate.url,
+            resume=resume,
+            force_refresh=force_refresh,
+        ):
+            skipped_urls.append(candidate.url)
+            continue
         try:
             snapshot = await fetch_page_snapshot(
                 candidate.url,
                 timeout_ms=timeout_ms,
                 headless=headless,
             )
-            records.extend(
-                extractor.extract(
-                    snapshot,
-                    source_category_url=candidate.source_page_url,
-                )
+            extracted_records = extractor.extract(
+                snapshot,
+                source_category_url=candidate.source_page_url,
             )
+            records.extend(extracted_records)
+            if checkpoint_store:
+                checkpoint_store.mark_success(
+                    candidate.url,
+                    record_count=len(extracted_records),
+                    run_id=run_id,
+                )
         except Exception as exc:
             errors.append({"url": candidate.url, "error": str(exc)})
+            if checkpoint_store:
+                checkpoint_store.mark_failed(candidate.url, str(exc), run_id=run_id)
 
     write_product_outputs(
         records,
         jsonl_path=output,
         csv_path=csv_output,
         sqlite_path=sqlite_output,
+        replace_sqlite=not resume,
     )
 
     summary = {
-        "visited_product_url_count": len(candidates),
+        "run_id": run_id,
+        "candidate_product_url_count": len(candidates),
+        "visited_product_url_count": len(candidates) - len(skipped_urls),
+        "skipped_product_url_count": len(skipped_urls),
         "record_count": len(records),
         "complete_record_count": sum(
             1 for record in records if record.extraction_status.value == "complete"
@@ -242,6 +292,10 @@ async def _extract_products_from_discovery(
         "jsonl_output": str(output),
         "csv_output": str(csv_output) if csv_output else None,
         "sqlite_output": str(sqlite_output) if sqlite_output else None,
+        "checkpoint_db": str(checkpoint_db) if checkpoint_db else None,
+        "resume": resume,
+        "force_refresh": force_refresh,
+        "skipped_urls": skipped_urls,
         "errors": errors,
     }
     summary_output.parent.mkdir(parents=True, exist_ok=True)

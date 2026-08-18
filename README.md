@@ -74,13 +74,25 @@ safco-agent discover --config config/default.yaml --output output/discovery.json
 Extract normalized product records from discovered product URLs:
 
 ```powershell
-safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 2
+safco-agent extract-products --discovery output/discovery.json --output output/products.jsonl --summary-output output/extraction-summary.json --max-products-per-category 2 --checkpoint-db output/checkpoints.sqlite
 ```
 
 Inspect the SQLite product store:
 
 ```powershell
 safco-agent inspect-store --sqlite output/safco.sqlite --limit 5
+```
+
+Inspect checkpoint state:
+
+```powershell
+safco-agent inspect-checkpoints --checkpoint-db output/checkpoints.sqlite
+```
+
+Resume a product extraction run and skip product URLs already marked successful:
+
+```powershell
+safco-agent extract-products --discovery output/discovery.json --resume --checkpoint-db output/checkpoints.sqlite
 ```
 
 Build a data quality report:
@@ -133,13 +145,14 @@ Run `safco-agent schema --output docs/product_schema.json` for the machine-reada
 ## Near-Term Roadmap
 
 1. Add product table extraction fallback when JSON-LD is incomplete.
-2. Add checkpointing for resumable category and product crawls.
-3. Add selector drift and quality monitoring.
-4. Add optional LLM fallback for irregular pages.
-5. Add production deployment notes and a fuller runbook.
+2. Add selector drift and quality monitoring.
+3. Add optional LLM fallback for irregular pages.
+4. Add production deployment notes and a fuller runbook.
+5. Add CI workflow documentation.
 
 ## Known Limitations
 
 - Playwright must be installed before browser smoke checks can run.
 - Prices and stock availability may vary by account state, location, JavaScript loading, or site access controls.
 - Product extraction currently relies on Safco JSON-LD and does not yet parse every visible product table control.
+- Resume mode skips already successful product URLs and therefore writes outputs for newly processed records only.
